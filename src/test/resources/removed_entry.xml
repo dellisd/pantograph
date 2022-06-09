@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+    <channel>
+        <title>OC Transpo - Live Updates</title>
+        <link>http://www.octranspo.com/</link>
+        <description>Daily route changes resulting from detours and cancelled trips are listed here by OC Transpo staff
+            on weekdays, Saturdays until 9 pm and Sundays until 5 pm.
+        </description>
+        <atom:link href="http://octranspo1.com/feeds/updates-en" rel="self" type="application/rss+xml" />
+
+
+        <item>
+            <title>173 Fallowfield: Cancelled trip</title>
+            <pubDate>Thu, 09 Jun 2022 14:27:00 EDT</pubDate>
+            <category><![CDATA[Cancelled trips]]></category>
+            <category><![CDATA[affectedRoutes-173]]></category>
+            <link>https://www.octranspo.com/en/alerts#alert-173-fallowfield-cancelled-trip-1654799344757</link>
+            <description>
+                <![CDATA[June 09 2022 - <p>Trip cancelled from Barrhaven Centre 14:30 to Fallowfield station 14:50. Next trip in 30 minutes.</p>]]></description>
+            <guid>https://www.octranspo.com/en/alerts#alert-173-fallowfield-cancelled-trip-1654799344757</guid>
+        </item>
+
+        <item>
+            <title>57 Tunney&#8217;s Pasture: Cancelled trip</title>
+            <pubDate>Thu, 09 Jun 2022 14:22:00 EDT</pubDate>
+            <category><![CDATA[Cancelled trips]]></category>
+            <category><![CDATA[affectedRoutes-57]]></category>
+            <link>https://www.octranspo.com/en/alerts#alert-57-tunneys-pasture-cancelled-trip-1654799112813</link>
+            <description>
+                <![CDATA[June 09 2022 - <p>Trip cancelled from Bayshore station 14:25 to Tunney&#39;s Pasture station 14:48. Next trip in 16 minutes.</p>]]></description>
+            <guid>https://www.octranspo.com/en/alerts#alert-57-tunneys-pasture-cancelled-trip-1654799112813</guid>
+        </item>
+    </channel>
+</rss>

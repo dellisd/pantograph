@@ -1,0 +1,36 @@
+import java.time.LocalDateTime;
+import kotlin.String;
+import kotlin.collections.List;
+
+CREATE TABLE Entry (
+    guid TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    language TEXT NOT NULL,
+    affected_routes TEXT AS List<String> NOT NULL,
+    link TEXT NOT NULL,
+    published TEXT AS LocalDateTime NOT NULL,
+    updated TEXT AS LocalDateTime NOT NULL,
+    removed TEXT AS LocalDateTime,
+    hash TEXT NOT NULL
+);
+
+CREATE INDEX idx_entry ON Entry (guid);
+
+insert:
+INSERT INTO Entry VALUES ?;
+
+getAll:
+SELECT * FROM Entry ORDER BY updated DESC;
+
+getByGuid:
+SELECT * FROM Entry WHERE guid = ? ORDER BY updated DESC;
+
+getByGuids:
+SELECT * FROM Entry WHERE guid IN ? ORDER BY updated DESC;
+
+getNotRemoved:
+SELECT * FROM Entry WHERE removed IS NULL;
+
+setRemoval:
+UPDATE Entry SET removed = ? WHERE guid = ?;
