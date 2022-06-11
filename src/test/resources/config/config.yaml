@@ -1,0 +1,13 @@
+api:
+  appId: "APP ID!"
+  apiKey: "API KEY!"
+
+collector:
+  refresh: 5
+
+tracker:
+  - route: "56"
+    stops:
+      - "3000"
+      - "2000"
+      - "1000"

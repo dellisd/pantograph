@@ -1,9 +1,9 @@
 package ca.derekellis.pantograph
 
-import ca.derekellis.pantograph.db.PantographDatabase
 import ca.derekellis.pantograph.di.PantographComponent
 import ca.derekellis.pantograph.di.TestNetworkComponent
 import ca.derekellis.pantograph.di.create
+import ca.derekellis.pantograph.util.RESOURCES
 import io.ktor.client.engine.mock.MockRequestHandleScope
 import io.ktor.client.engine.mock.respond
 import io.ktor.client.request.HttpRequestData
@@ -11,12 +11,10 @@ import io.ktor.client.request.HttpResponseData
 import io.ktor.http.HttpHeaders
 import io.ktor.http.headersOf
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import java.nio.file.Paths
 import kotlin.io.path.div
 import kotlin.io.path.readText
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -39,7 +37,7 @@ internal class CollectorServiceTest {
 
     @Test
     fun `simple collection works`() = runTest {
-        val component = component(fixtures("base.xml"))
+        val component = component(fixtures("feed/base.xml"))
 
         component.collectorService.getFeed("en")
 
@@ -48,7 +46,7 @@ internal class CollectorServiceTest {
 
     @Test
     fun `new entry is added`() = runTest {
-        val component = component(fixtures("base.xml", "new_entry.xml"))
+        val component = component(fixtures("feed/base.xml", "feed/new_entry.xml"))
 
         component.collectorService.getFeed("en") // Initial request
         component.collectorService.getFeed("en") // Request with new entry
@@ -58,7 +56,7 @@ internal class CollectorServiceTest {
 
     @Test
     fun `removed entry is marked removed`() = runTest {
-        val component = component(fixtures("base.xml", "removed_entry.xml"))
+        val component = component(fixtures("feed/base.xml", "feed/removed_entry.xml"))
 
         component.collectorService.getFeed("en") // Initial request
         component.collectorService.getFeed("en") // Request with removed entry
@@ -74,7 +72,7 @@ internal class CollectorServiceTest {
 
     @Test
     fun `updated entry is entered`() = runTest {
-        val component = component(fixtures("base.xml", "updated_entry.xml"))
+        val component = component(fixtures("feed/base.xml", "feed/updated_entry.xml"))
 
         component.collectorService.getFeed("en") // Initial request
         delay(5)
@@ -88,9 +86,5 @@ internal class CollectorServiceTest {
             .executeAsList()
 
         assertTrue { original.updated < updated.updated }
-    }
-
-    companion object {
-        private val RESOURCES = Paths.get("src", "test", "resources")
     }
 }

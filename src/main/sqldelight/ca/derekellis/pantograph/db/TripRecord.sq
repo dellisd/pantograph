@@ -1,0 +1,18 @@
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+CREATE TABLE TripRecord (
+    timestamp TEXT AS LocalDateTime NOT NULL,
+    trip_id TEXT NOT NULL,
+    stop TEXT NOT NULL,
+    arrival INTEGER AS Duration NOT NULL,
+    latitude REAL,
+    longitude REAL,
+    update_age INTEGER AS Duration
+);
+
+insert:
+INSERT INTO TripRecord VALUES ?;
+
+getAll:
+SELECT * FROM TripRecord;

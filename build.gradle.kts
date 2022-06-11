@@ -13,6 +13,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
 }
 
 kotlin {
@@ -30,6 +31,7 @@ dependencies {
     implementation(libs.sqldelight.adapters)
     implementation(libs.sqldelight.driver.sqlite)
     implementation(libs.bundles.ktor)
+    implementation(libs.kotlinx.serialization.yaml)
 
     implementation(libs.logback)
     implementation(libs.clikt)

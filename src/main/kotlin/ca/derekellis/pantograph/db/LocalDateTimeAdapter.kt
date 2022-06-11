@@ -1,6 +1,7 @@
 package ca.derekellis.pantograph.db
 
 import app.cash.sqldelight.ColumnAdapter
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -15,4 +16,10 @@ object StringListAdapter : ColumnAdapter<List<String>, String> {
     override fun decode(databaseValue: String): List<String> = databaseValue.split(",")
 
     override fun encode(value: List<String>): String = value.joinToString(separator = ",")
+}
+
+object DurationAdapter : ColumnAdapter<Duration, Long> {
+    override fun decode(databaseValue: Long): Duration = Duration.ofMillis(databaseValue)
+
+    override fun encode(value: Duration): Long = value.toMillis()
 }
