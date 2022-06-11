@@ -10,6 +10,7 @@ import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
+import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
@@ -37,7 +38,8 @@ class TrackerService(
     private val logger = LoggerFactory.getLogger(javaClass)
     private val client = HttpClient(engine) {
         install(ContentNegotiation) {
-            json()
+            // The OC Transpo API returns JSON with the text/html Content-Type...
+            json(contentType = ContentType.parse("text/html"))
         }
     }
 
