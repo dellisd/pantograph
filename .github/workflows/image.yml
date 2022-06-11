@@ -1,0 +1,22 @@
+name: Build Docker Images
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Authenticate package registry
+        run: echo "${{ secrets.CONTAINER_TOKEN }}" | docker login https://ghcr.io -u ${GITHUB_ACTOR} --password-stdin
+      - name: Get tag
+        run: echo "BUILD_TAG=$(git describe --tags)" >> $GITHUB_ENV
+
+      - name: Build and tag image
+        run: docker build -f server/Dockerfile -t ghcr.io/dellisd/pantograph:${BUILD_TAG} -t ghcr.io/dellisd/pantograph:dev .
+      - name: Push image
+        if: success()
+        run: docker push --all-tags ghcr.io/dellisd/pantograph

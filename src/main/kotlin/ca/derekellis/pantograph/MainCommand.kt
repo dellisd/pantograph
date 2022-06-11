@@ -26,7 +26,7 @@ class MainCommand : CliktCommand() {
     private val db by argument().optional()
     private val config by option().path(mustExist = true, canBeDir = false)
 
-    private val configProvider = config?.let { ConfigProvider.load(it) } ?: Config()
+    private val configProvider by lazy { config?.let { ConfigProvider.load(it) } ?: Config() }
 
     override fun run() {
         val component = PantographComponent::class.create(db ?: "", NetworkComponent::class.create())
