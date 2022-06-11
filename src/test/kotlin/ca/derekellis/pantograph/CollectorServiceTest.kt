@@ -3,6 +3,7 @@ package ca.derekellis.pantograph
 import ca.derekellis.pantograph.di.PantographComponent
 import ca.derekellis.pantograph.di.TestNetworkComponent
 import ca.derekellis.pantograph.di.create
+import ca.derekellis.pantograph.model.Config
 import ca.derekellis.pantograph.util.RESOURCES
 import io.ktor.client.engine.mock.MockRequestHandleScope
 import io.ktor.client.engine.mock.respond
@@ -24,6 +25,7 @@ internal class CollectorServiceTest {
     private fun component(block: suspend MockRequestHandleScope.(HttpRequestData) -> HttpResponseData): PantographComponent {
         return PantographComponent::class.create(
             "",
+            Config(),
             TestNetworkComponent::class.create { scope, request -> block.invoke(scope, request) })
     }
 

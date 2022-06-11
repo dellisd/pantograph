@@ -3,6 +3,7 @@ package ca.derekellis.pantograph
 import ca.derekellis.pantograph.di.NetworkComponent
 import ca.derekellis.pantograph.di.PantographComponent
 import ca.derekellis.pantograph.di.create
+import ca.derekellis.pantograph.model.Config
 import ca.derekellis.pantograph.util.RESOURCES
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -25,7 +26,7 @@ internal class TrackerServiceTest {
 
     @BeforeTest
     fun setup() {
-        service = PantographComponent::class.create("", NetworkComponent::class.create()).trackerService
+        service = PantographComponent::class.create("", Config(), NetworkComponent::class.create()).trackerService
     }
 
     @Test

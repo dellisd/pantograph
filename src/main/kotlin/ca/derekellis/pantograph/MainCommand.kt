@@ -29,7 +29,7 @@ class MainCommand : CliktCommand() {
     private val configProvider by lazy { config?.let { ConfigProvider.load(it) } ?: Config() }
 
     override fun run() {
-        val component = PantographComponent::class.create(db ?: "", NetworkComponent::class.create())
+        val component = PantographComponent::class.create(db ?: "", configProvider, NetworkComponent::class.create())
         runBlocking {
             buildList {
                 add(async { collector(component.collectorService) })

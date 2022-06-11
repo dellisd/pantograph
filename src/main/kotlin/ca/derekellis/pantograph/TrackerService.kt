@@ -4,6 +4,7 @@ import ca.derekellis.pantograph.db.PantographDatabase
 import ca.derekellis.pantograph.db.TripRecord
 import ca.derekellis.pantograph.di.PantographScope
 import ca.derekellis.pantograph.model.ApiConfig
+import ca.derekellis.pantograph.model.ConfigBase
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
@@ -28,7 +29,11 @@ import kotlin.time.Duration.Companion.minutes
 
 @Inject
 @PantographScope
-class TrackerService(private val database: PantographDatabase, private val engine: HttpClientEngine) {
+class TrackerService(
+    private val database: PantographDatabase,
+    private val engine: HttpClientEngine,
+    private val config: ConfigBase
+) {
     private val logger = LoggerFactory.getLogger(javaClass)
     private val client = HttpClient(engine) {
         install(ContentNegotiation) {
@@ -36,17 +41,12 @@ class TrackerService(private val database: PantographDatabase, private val engin
         }
     }
 
-    private var config: ApiConfig? = null
-
-    fun register(appId: String, apiKey: String) {
-        config = ApiConfig(appId, apiKey)
-    }
-
     suspend fun getData(stop: String, route: String) {
-        requireNotNull(config)
+        val apiConfig = config.api
+        requireNotNull(apiConfig)
 
         val url =
-            "https://api.octranspo1.com/v2.0/GetNextTripsForStopWithIdAndGps?appID=${config!!.appId}&apiKey=${config!!.apiKey}&stopNo=${stop}&routeNo=${route}"
+            "https://api.octranspo1.com/v2.0/GetNextTripsForStopWithIdAndGps?appID=${apiConfig.appId}&apiKey=${apiConfig.apiKey}&stopNo=${stop}&routeNo=${route}"
         logger.debug("Making request to $url")
 
         val data = client.get(url).body<JsonObject>()
