@@ -18,7 +18,7 @@ jobs:
         run: echo "BUILD_TAG=$(git describe --tags)" >> $GITHUB_ENV
 
       - name: Build and tag image
-        run: docker build -f server/Dockerfile -t ghcr.io/dellisd/pantograph:${BUILD_TAG} -t ghcr.io/dellisd/pantograph:dev .
+        run: docker build -f Dockerfile -t ghcr.io/dellisd/pantograph:${BUILD_TAG} -t ghcr.io/dellisd/pantograph:dev .
       - name: Push image
         if: success()
         run: docker push --all-tags ghcr.io/dellisd/pantograph
