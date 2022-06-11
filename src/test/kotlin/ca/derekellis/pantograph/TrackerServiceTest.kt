@@ -31,7 +31,7 @@ internal class TrackerServiceTest {
     @Test
     fun `base json parse works`() {
         val data = fixture("api/base.json")
-        val result = service.parse("STOP", "ROUTE", data)
+        val result = service.parse("STOP", data)
 
         assertEquals(3, result.size)
 
@@ -43,7 +43,7 @@ internal class TrackerServiceTest {
     @Test
     fun `single object trip parse works`() {
         val data = fixture("api/single_trip.json")
-        val result = service.parse("STOP", "ROUTE", data)
+        val result = service.parse("STOP", data)
 
         assertEquals(1, result.size)
 

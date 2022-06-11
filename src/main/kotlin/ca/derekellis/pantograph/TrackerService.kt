@@ -51,7 +51,7 @@ class TrackerService(private val database: PantographDatabase, private val engin
 
         val data = client.get(url).body<JsonObject>()
         val result: List<TripRecord> = try {
-            parse(stop, route, data)
+            parse(stop, data)
         } catch (e: Exception) {
             logger.error("JSON Parsing error", e)
             return
@@ -64,7 +64,7 @@ class TrackerService(private val database: PantographDatabase, private val engin
         }
     }
 
-    internal fun parse(stop: String, route: String, data: JsonObject): List<TripRecord> {
+    internal fun parse(stop: String, data: JsonObject): List<TripRecord> {
         val container = data.getValue("GetNextTripsForStopWithIdAndGpsResult")
             .jsonObject.getValue("Route")
             .jsonObject.getValue("RouteDirection")

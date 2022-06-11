@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -5,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.shadow)
     application
 }
 
@@ -55,4 +57,12 @@ sqldelight {
     database("PantographDatabase") {
         packageName = "ca.derekellis.pantograph.db"
     }
+}
+
+application {
+    mainClass.set("ca.derekellis.pantograph.MainKt")
+}
+
+tasks.withType<ShadowJar> {
+    archiveFileName.set("${project.name}.jar")
 }
