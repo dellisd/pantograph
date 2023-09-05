@@ -24,6 +24,6 @@ internal class ConfigProviderTest {
 
         assertEquals(CollectorConfig(refresh = 5), provider.collector)
 
-        assertEquals(TrackerConfig("56", listOf("3000", "2000", "1000")), provider.tracker.first())
+        assertEquals(TrackerConfig(listOf("3000", "2000", "1000"), setOf("10")), provider.tracker.first())
     }
 }

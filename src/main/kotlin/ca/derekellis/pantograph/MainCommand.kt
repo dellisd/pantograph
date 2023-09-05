@@ -60,7 +60,7 @@ class MainCommand : CliktCommand() {
         while (true) {
             configProvider.tracker.flatMap { trackerConfig ->
                 trackerConfig.stops.map { stop ->
-                    async { service.getData(stop, trackerConfig.route) }
+                    async { service.getData(stop, trackerConfig.routes) }
                 }
             }.joinAll()
 

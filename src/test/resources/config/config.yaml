@@ -6,7 +6,7 @@ collector:
   refresh: 5
 
 tracker:
-  - route: "56"
+  - routes: ["10"]
     stops:
       - "3000"
       - "2000"

@@ -8,7 +8,8 @@ CREATE TABLE TripRecord (
     arrival INTEGER AS Duration NOT NULL,
     latitude REAL,
     longitude REAL,
-    update_age INTEGER AS Duration
+    update_age INTEGER AS Duration,
+    route TEXT
 );
 
 insert:

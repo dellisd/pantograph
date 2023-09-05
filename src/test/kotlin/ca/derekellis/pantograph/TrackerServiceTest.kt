@@ -1,23 +1,19 @@
 package ca.derekellis.pantograph
 
-import ca.derekellis.pantograph.di.NetworkComponent
 import ca.derekellis.pantograph.di.PantographComponent
 import ca.derekellis.pantograph.di.TestNetworkComponent
 import ca.derekellis.pantograph.di.create
 import ca.derekellis.pantograph.model.ApiConfig
 import ca.derekellis.pantograph.model.Config
 import ca.derekellis.pantograph.util.RESOURCES
-import io.ktor.client.engine.mock.respond
-import io.ktor.http.HttpHeaders
-import io.ktor.http.headersOf
+import io.ktor.client.engine.mock.*
+import io.ktor.http.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
-import org.junit.jupiter.api.Assertions.*
-import java.nio.file.Paths
+import org.junit.jupiter.api.Assertions.assertEquals
 import java.time.Duration
-import kotlin.io.path.Path
 import kotlin.io.path.div
 import kotlin.io.path.readText
 import kotlin.test.BeforeTest
@@ -54,6 +50,7 @@ internal class TrackerServiceTest {
         val (first) = result
         assertEquals(Duration.ofMinutes(24), first.arrival)
         assertEquals("85322018", first.trip_id)
+        assertEquals("7", first.route)
     }
 
     @Test
@@ -70,6 +67,6 @@ internal class TrackerServiceTest {
 
     @Test
     fun `content negotiation works`() = runTest {
-        service.getData("ANY", "STOP")
+        service.getData("ANY", setOf("7"))
     }
 }

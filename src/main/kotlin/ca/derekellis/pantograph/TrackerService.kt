@@ -43,12 +43,12 @@ class TrackerService(
         }
     }
 
-    suspend fun getData(stop: String, route: String) {
+    suspend fun getData(stop: String, routes: Set<String>) {
         val apiConfig = config.api
         requireNotNull(apiConfig)
 
         val url =
-            "https://api.octranspo1.com/v2.0/GetNextTripsForStopWithIdAndGps?appID=${apiConfig.appId}&apiKey=${apiConfig.apiKey}&stopNo=${stop}&routeNo=${route}"
+            "https://api.octranspo1.com/v2.0/GetNextTripsForStopWithIdAndGps?appID=${apiConfig.appId}&apiKey=${apiConfig.apiKey}&stopNo=${stop}"
         logger.debug("Making request to $url")
 
         val data = client.get(url).body<JsonObject>()
@@ -60,7 +60,7 @@ class TrackerService(
         }
 
         database.transaction {
-            result.forEach {
+            result.filter { it.route in routes }.forEach {
                 database.tripRecordQueries.insert(it)
             }
         }
@@ -93,7 +93,8 @@ class TrackerService(
                     trip.getValue("Longitude").jsonPrimitive.doubleOrNull,
                     trip.getValue("Latitude").jsonPrimitive.doubleOrNull,
                     trip.getValue("AdjustmentAge").jsonPrimitive.double.takeIf { it > 0 }
-                        ?.let { Duration.ofMillis((60000 * it).toLong()) }
+                        ?.let { Duration.ofMillis((60000 * it).toLong()) },
+                    element.jsonObject["RouteNo"]?.jsonPrimitive?.content,
                 )
             }
         }

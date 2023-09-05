@@ -22,4 +22,4 @@ data class ApiConfig(val appId: String, val apiKey: String)
 data class CollectorConfig(val refresh: Int = 3)
 
 @Serializable
-data class TrackerConfig(val route: String, val stops: List<String>)
+data class TrackerConfig(val stops: List<String>, val routes: Set<String>)
