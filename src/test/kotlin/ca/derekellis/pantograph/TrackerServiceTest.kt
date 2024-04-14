@@ -47,6 +47,7 @@ internal class TrackerServiceTest {
 
         val (first) = result
         assertEquals(Duration.ofMinutes(22), first.arrival)
+        assertEquals("12:56", first.trip_id)
         assertEquals("44", first.route)
     }
 }

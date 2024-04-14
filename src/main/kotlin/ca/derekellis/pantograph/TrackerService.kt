@@ -91,10 +91,11 @@ class TrackerService(
         val latitudeText = xPath.evaluate("./Latitude", element, XPathConstants.STRING) as String
         val longitudeText = xPath.evaluate("./Longitude", element, XPathConstants.STRING) as String
         val adjustmentAge = (xPath.evaluate("./AdjustmentAge", element, XPathConstants.STRING) as String).toFloat()
+        val tripStartTime = xPath.evaluate("./TripStartTime", element, XPathConstants.STRING) as String
 
         return TripRecord(
             timestamp = LocalDateTime.now(),
-            trip_id = "",
+            trip_id = tripStartTime,
             stop = stop,
             Duration.ofMinutes(adjustedScheduleTime),
             longitude = longitudeText.toDoubleOrNull(),
