@@ -6,23 +6,21 @@ import ca.derekellis.pantograph.di.create
 import ca.derekellis.pantograph.model.ApiConfig
 import ca.derekellis.pantograph.model.Config
 import ca.derekellis.pantograph.util.RESOURCES
-import io.ktor.client.engine.mock.*
-import io.ktor.http.*
-import kotlinx.coroutines.test.runTest
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
+import io.ktor.client.engine.mock.respond
+import io.ktor.http.HttpHeaders
+import io.ktor.http.headersOf
 import org.junit.jupiter.api.Assertions.assertEquals
 import java.time.Duration
 import kotlin.io.path.div
+import kotlin.io.path.readBytes
 import kotlin.io.path.readText
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 internal class TrackerServiceTest {
-    private fun fixture(file: String): JsonObject {
+    private fun fixture(file: String): ByteArray {
         val path = RESOURCES / file
-        return Json.decodeFromString(path.readText())
+        return path.readBytes()
     }
 
     private lateinit var service: TrackerService
@@ -42,31 +40,13 @@ internal class TrackerServiceTest {
 
     @Test
     fun `base json parse works`() {
-        val data = fixture("api/base.json")
+        val data = fixture("api/base.xml")
         val result = service.parse("STOP", data)
 
         assertEquals(3, result.size)
 
         val (first) = result
-        assertEquals(Duration.ofMinutes(24), first.arrival)
-        assertEquals("85322018", first.trip_id)
-        assertEquals("7", first.route)
-    }
-
-    @Test
-    fun `single object trip parse works`() {
-        val data = fixture("api/single_trip.json")
-        val result = service.parse("STOP", data)
-
-        assertEquals(1, result.size)
-
-        val (first) = result
-        assertEquals(Duration.ofMinutes(24), first.arrival)
-        assertEquals("85322018", first.trip_id)
-    }
-
-    @Test
-    fun `content negotiation works`() = runTest {
-        service.getData("ANY", setOf("7"))
+        assertEquals(Duration.ofMinutes(22), first.arrival)
+        assertEquals("44", first.route)
     }
 }

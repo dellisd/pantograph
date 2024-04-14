@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soap:Body>
+        <GetRouteSummaryForStopResponse xmlns="http://octranspo.com">
+            <GetRouteSummaryForStopResult>
+                <StopNo>8422</StopNo>
+                <StopDescription>ALTA VISTA / PALEN</StopDescription>
+                <Error/>
+                <Routes>
+                    <Route>
+                        <RouteNo>44</RouteNo>
+                        <RouteHeading>Hurdman</RouteHeading>
+                        <DirectionID>1</DirectionID>
+                        <Direction/>
+                        <Error/>
+                        <Trips>
+                            <Trip>
+                                <TripDestination>Hurdman</TripDestination>
+                                <TripStartTime>12:56</TripStartTime>
+                                <AdjustedScheduleTime>22</AdjustedScheduleTime>
+                                <AdjustmentAge>0.55</AdjustmentAge>
+                                <LastTripOfSchedule>false</LastTripOfSchedule>
+                                <BusType/>
+                                <Longitude/>
+                                <Latitude/>
+                                <GPSSpeed/>
+                            </Trip>
+                            <Trip>
+                                <TripDestination>Hurdman</TripDestination>
+                                <TripStartTime>13:26</TripStartTime>
+                                <AdjustedScheduleTime>52</AdjustedScheduleTime>
+                                <AdjustmentAge>-1</AdjustmentAge>
+                                <LastTripOfSchedule>false</LastTripOfSchedule>
+                                <BusType/>
+                                <Longitude/>
+                                <Latitude/>
+                                <GPSSpeed/>
+                            </Trip>
+                            <Trip>
+                                <TripDestination>Hurdman</TripDestination>
+                                <TripStartTime>13:56</TripStartTime>
+                                <AdjustedScheduleTime>82</AdjustedScheduleTime>
+                                <AdjustmentAge>-1</AdjustmentAge>
+                                <LastTripOfSchedule>false</LastTripOfSchedule>
+                                <BusType/>
+                                <Longitude/>
+                                <Latitude/>
+                                <GPSSpeed/>
+                            </Trip>
+                        </Trips>
+                    </Route>
+                </Routes>
+            </GetRouteSummaryForStopResult>
+        </GetRouteSummaryForStopResponse>
+    </soap:Body>
+</soap:Envelope>
